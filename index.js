@@ -24,7 +24,74 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+//Solution 1
+/*
+app.get("/api/:date?", (req, res, next)=>{
+	const endPointRegex =  /^\d{4}\-\d{1,2}\-\d{1,2}$/ig;
+	const errorRegex =  /^(\d{4}\-\d{1,2}\-\d{1,2}|\d{1,16})$/ig;
+	let endPointString = req.params.date;
+	console.log("empty endpoint = "+endPointString);
+	var now;
+	if(((errorRegex.test(endPointString) === false) || endPointString > 8640000000000000) && endPointString !== undefined){
+		req.err = "Invalid Date";
+		next();
+	}
+	else if(endPointRegex.test(endPointString)){
+		now = new Date(req.params.date);
+	}else{
+		if(endPointString === "" || endPointString === undefined){
+			now = new Date();
+		}else{
+			now = new Date(parseInt(req.params.date));
+		}
+	}
+	let myDateString = now.toString().split(' ');
+	req.dayOfTheWeek = myDateString[0];
+	req.month = myDateString[1];
+	req.dayOfTheMonth = myDateString[2];
+	req.year = myDateString[3];
+	req.time = myDateString[4];
+	const zoneRegex = /([a-zA-Z]*)/gi;
+	req.timeZone = myDateString[5].match(zoneRegex)[0];
+	req.unix = now.getTime();
+	next();
+}, (req, res)=>{
+	const errorRegex =  /^(\d{4}\-\d{1,2}\-\d{1,2}|\d+)$/ig;
+	let endPointString = req.params.date;
+	if(((errorRegex.test(endPointString) === false) || endPointString > 8640000000000000) && endPointString !== undefined){
+		res.json({error: req.err});
+	}else{
+		res.json({"unix":req.unix, "utc": `${req.dayOfTheWeek}, ${req.dayOfTheMonth} ${req.month} ${req.year} ${req.time} ${req.timeZone}`});
+	}
+});
+*/
 
+//Solution 2 - more concised
+app.get("/api/", (req, res)=>{
+	const date = new Date();
+	res.json({unix: date.getTime(), utc: date.toUTCString()});
+});
+
+app.get("/api/:date_string?", (req, res)=>{
+	const {date_string} = req.params;
+
+	let date = new Date(date_string);
+
+	if(date.toString() === "Invalid Date"){
+		date = new Date(parseInt(date_string));
+	}
+
+	if(date.toString() === 'Invalid Date'){
+		return res.json({
+			error: "Invalid Date"
+		});
+	}else{
+		return res.json({
+			unix: date.getTime(),
+			utc: date.toUTCString()
+		});
+	}
+});
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
