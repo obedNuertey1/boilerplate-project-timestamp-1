@@ -25,7 +25,7 @@ app.get("/api/hello", function (req, res) {
 });
 
 //Solution 1
-/*
+
 app.get("/api/:date?", (req, res, next)=>{
 	const endPointRegex =  /^\d{4}\-\d{1,2}\-\d{1,2}$/ig;
 	const errorRegex =  /^(\d{4}\-\d{1,2}\-\d{1,2}|\d{1,16})$/ig;
@@ -64,9 +64,9 @@ app.get("/api/:date?", (req, res, next)=>{
 		res.json({"unix":req.unix, "utc": `${req.dayOfTheWeek}, ${req.dayOfTheMonth} ${req.month} ${req.year} ${req.time} ${req.timeZone}`});
 	}
 });
-*/
 
-//Solution 2 - more concised
+
+/*//Solution 2 - more concised
 app.get("/api/", (req, res)=>{
 	const date = new Date();
 	res.json({unix: date.getTime(), utc: date.toUTCString()});
@@ -92,7 +92,7 @@ app.get("/api/:date_string?", (req, res)=>{
 		});
 	}
 });
-
+*/
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
