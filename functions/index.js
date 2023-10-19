@@ -4,6 +4,9 @@
 // init project
 var express = require('express');
 var app = express();
+const serverless = require('serverless-http');
+const router = express.Router();
+
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC 
@@ -14,19 +17,19 @@ app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 20
 app.use(express.static('public'));
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.get("/", function (req, res) {
+router.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
 
 // your first API endpoint... 
-app.get("/api/hello", function (req, res) {
+router.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
 //Solution 1
 
-app.get("/api/:date?", (req, res, next)=>{
+router.get("/api/:date?", (req, res, next)=>{
 	const endPointRegex =  /^\d{4}\-\d{1,2}\-\d{1,2}$/ig;
 	const errorRegex =  /^(\d{4}\-\d{1,2}\-\d{1,2}|\d{1,16})$/ig;
 	let endPointString = req.params.date;
@@ -94,6 +97,8 @@ app.get("/api/:date_string?", (req, res)=>{
 });
 */
 // listen for requests :)
+app.use('/.netlify/functions/api', router);
+module.exports.handler = serverless(app);
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
