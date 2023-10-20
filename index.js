@@ -6,6 +6,8 @@ var express = require('express');
 var app = express();
 
 
+
+
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC 
 var cors = require('cors');
@@ -26,7 +28,6 @@ app.get("/api/hello", function (req, res) {
 });
 
 //Solution 1
-
 app.get("/api/:date?", (req, res, next)=>{
 	const endPointRegex =  /^\d{4}\-\d{1,2}\-\d{1,2}$/ig;
 	const errorRegex =  /^(\d{4}\-\d{1,2}\-\d{1,2}|\d{1,16})$/ig;

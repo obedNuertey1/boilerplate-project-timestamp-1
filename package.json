@@ -4,13 +4,12 @@
   "description": "An FCC Backend Challenge",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node ./functions/index.js",
+    "build": "netlify deploy --prod"
   },
   "dependencies": {
     "cors": "^2.8.0",
-    "express": "^4.12.4",
-    "netlify-lambda": "^2.0.15",
-    "serverless-http": "^2.7.0"
+    "express": "^4.12.4"
   },
   "repository": {
     "type": "git",
