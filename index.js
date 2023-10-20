@@ -67,34 +67,6 @@ app.get("/api/:date?", (req, res, next)=>{
 	}
 });
 
-
-/*//Solution 2 - more concised
-app.get("/api/", (req, res)=>{
-	const date = new Date();
-	res.json({unix: date.getTime(), utc: date.toUTCString()});
-});
-
-app.get("/api/:date_string?", (req, res)=>{
-	const {date_string} = req.params;
-
-	let date = new Date(date_string);
-
-	if(date.toString() === "Invalid Date"){
-		date = new Date(parseInt(date_string));
-	}
-
-	if(date.toString() === 'Invalid Date'){
-		return res.json({
-			error: "Invalid Date"
-		});
-	}else{
-		return res.json({
-			unix: date.getTime(),
-			utc: date.toUTCString()
-		});
-	}
-});
-*/
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
