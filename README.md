@@ -9,4 +9,4 @@
 * An empty date parameter should return the current time in a JSON object with a unix key
 * An empty date parameter should return the current time in a JSON object with a utc key
 
-![Visit Site](https://obn-timestamp-microservice.onrender.com/)
+[Visit Site](https://obn-timestamp-microservice.onrender.com/)
