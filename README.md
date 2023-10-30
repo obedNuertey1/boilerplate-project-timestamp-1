@@ -5,7 +5,7 @@
 - [Visit Site](https://obn-timestamp-microservice.onrender.com/)
 
 ## Introduction
-Welcome to our Timestamp Microservice! We've got your date and time needs covered. With a simple request to `/api/:date?`, you'll receive a JSON object with two valuable keys:
+Welcome to my Timestamp Microservice! We've got your date and time needs covered. With a simple request to `/api/:date?`, you'll receive a JSON object with two valuable keys:
 
 1. **unix**: Get the Unix timestamp of the input date in milliseconds (as a Number).
 2. **utc**: Enjoy the input date in a user-friendly string format like "Thu, 01 Jan 1970 00:00:00 GMT."
